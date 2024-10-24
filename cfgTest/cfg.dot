@@ -1,0 +1,84 @@
+digraph cfg {
+ subgraph cluster_bubbleSort {
+ graph [label="bubbleSort"];
+ s1 [label="int i = 0;"];
+ s1 -> s2;
+ s2 [label="< loop> "];
+ s2 -> s4;
+ s4 [label="if i < n - 1"];
+ s4 -> s6;
+ s4 -> s5;
+ s5 [label="< break> "];
+ s5 -> s46;
+ s6 [label="< block> "];
+ s6 -> s7;
+ s7 [label="int j = 0;"];
+ s7 -> s8;
+ s8 [label="< loop> "];
+ s8 -> s10;
+ s10 [label="if j < (n - i) - 1"];
+ s10 -> s12;
+ s10 -> s11;
+ s11 [label="< break> "];
+ s11 -> s20;
+ s12 [label="< block> "];
+ s12 -> s14;
+ s14 [label="if *(arr + j) > *(arr + (j + 1))"];
+ s14 -> s15;
+ s14 -> s19;
+ s15 [label="int temp = *(arr + j);"];
+ s15 -> s16;
+ s16 [label="*(arr + j) = *(arr + (j + 1));"];
+ s16 -> s17;
+ s17 [label="*(arr + (j + 1)) = temp;"];
+ s17 -> s19;
+ s19 [label="j ++;"];
+ s19 -> s8;
+ s20 [label="i ++;"];
+ s20 -> s2;
+ s46 [label="< return> "];
+ }
+ subgraph cluster_printArray {
+ graph [label="printArray"];
+ s23 [label="< block> "];
+ s23 -> s24;
+ s24 [label="int i = 0;"];
+ s24 -> s25;
+ s25 [label="< loop> "];
+ s25 -> s27;
+ s27 [label="if i < n"];
+ s27 -> s29;
+ s27 -> s28;
+ s28 [label="< break> "];
+ s28 -> s32;
+ s29 [label="< block> "];
+ s29 -> s30;
+ s30 [label="printf(\"%d \",*(arr + i)); /* printf_va_1 */"];
+ s30 -> s31;
+ s31 [label="i ++;"];
+ s31 -> s25;
+ s32 [label="printf(\"\\n\"); /* printf_va_2 */"];
+ s32 -> s48;
+ s48 [label="< return> "];
+ }
+ subgraph cluster_main {
+ graph [label="main"];
+ s35 [label="int arr[7] = {64, 34, 25, 12, 22, 11, 90};"];
+ s35 -> s36;
+ s36 [label="int n = (int)(sizeof(arr) / sizeof(arr[0]));"];
+ s36 -> s37;
+ s37 [label="printf(\"Original array: \\n\"); /* printf_va_3 */"];
+ s37 -> s38;
+ s38 [label="printArray(arr,n);"];
+ s38 -> s39;
+ s39 [label="bubbleSort(arr,n);"];
+ s39 -> s40;
+ s40 [label="printf(\"Sorted array: \\n\"); /* printf_va_4 */"];
+ s40 -> s41;
+ s41 [label="printArray(arr,n);"];
+ s41 -> s42;
+ s42 [label="__retres = 0;"];
+ s42 -> s50;
+ s50 [label="< return> "];
+ }
+}

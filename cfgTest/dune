@@ -1,0 +1,12 @@
+(library
+ (name ViewCfg)
+ (public_name frama-c-view-cfg.core)
+ (flags -open Frama_c_kernel :standard)
+ (libraries frama-c.kernel))
+
+(plugin
+ (optional)
+ (name view-cfg)
+ (libraries frama-c-view-cfg.core)
+ (site
+  (frama-c plugins)))
