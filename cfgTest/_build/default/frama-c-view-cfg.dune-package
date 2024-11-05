@@ -1,0 +1,44 @@
+(lang dune 3.16)
+(name frama-c-view-cfg)
+(sections (lib .) (lib_root ..) (libexec .))
+(files
+ (lib
+  (META
+   core/ViewCfg.a
+   core/ViewCfg.cma
+   core/ViewCfg.cmxa
+   core/hello.ml
+   core/viewCfg.cmi
+   core/viewCfg.cmt
+   core/viewCfg.cmx
+   core/viewCfg.ml
+   core/viewCfg__Hello.cmi
+   core/viewCfg__Hello.cmt
+   core/viewCfg__Hello.cmx
+   dune-package))
+ (lib_root (frama-c/plugins/view-cfg/META))
+ (libexec (core/ViewCfg.cmxs)))
+(library
+ (name frama-c-view-cfg.core)
+ (kind normal)
+ (archives (byte core/ViewCfg.cma) (native core/ViewCfg.cmxa))
+ (plugins (byte core/ViewCfg.cma) (native core/ViewCfg.cmxs))
+ (native_archives core/ViewCfg.a)
+ (requires frama-c.kernel)
+ (main_module_name ViewCfg)
+ (modes byte native)
+ (modules
+  (wrapped
+   (group
+    (alias
+     (obj_name viewCfg)
+     (visibility public)
+     (kind alias)
+     (source (path ViewCfg) (impl (path core/viewCfg.ml-gen))))
+    (name ViewCfg)
+    (modules
+     (module
+      (obj_name viewCfg__Hello)
+      (visibility public)
+      (source (path Hello) (impl (path core/hello.ml))))))
+   (wrapped true))))

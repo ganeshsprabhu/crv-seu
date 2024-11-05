@@ -1,0 +1,9 @@
+package "core" (
+  directory = "core"
+  description = ""
+  requires = "frama-c.kernel"
+  archive(byte) = "ViewCfg.cma"
+  archive(native) = "ViewCfg.cmxa"
+  plugin(byte) = "ViewCfg.cma"
+  plugin(native) = "ViewCfg.cmxs"
+)

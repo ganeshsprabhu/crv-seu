@@ -1,5 +1,4 @@
 open Cil_types
-open Cil
 
 let print_stmt out = function
 | Instr i -> Printer.pp_instr out i

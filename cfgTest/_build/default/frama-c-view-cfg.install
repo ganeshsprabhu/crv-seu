@@ -1,0 +1,21 @@
+lib: [
+  "_build/install/default/lib/frama-c-view-cfg/META"
+  "_build/install/default/lib/frama-c-view-cfg/core/ViewCfg.a" {"core/ViewCfg.a"}
+  "_build/install/default/lib/frama-c-view-cfg/core/ViewCfg.cma" {"core/ViewCfg.cma"}
+  "_build/install/default/lib/frama-c-view-cfg/core/ViewCfg.cmxa" {"core/ViewCfg.cmxa"}
+  "_build/install/default/lib/frama-c-view-cfg/core/hello.ml" {"core/hello.ml"}
+  "_build/install/default/lib/frama-c-view-cfg/core/viewCfg.cmi" {"core/viewCfg.cmi"}
+  "_build/install/default/lib/frama-c-view-cfg/core/viewCfg.cmt" {"core/viewCfg.cmt"}
+  "_build/install/default/lib/frama-c-view-cfg/core/viewCfg.cmx" {"core/viewCfg.cmx"}
+  "_build/install/default/lib/frama-c-view-cfg/core/viewCfg.ml" {"core/viewCfg.ml"}
+  "_build/install/default/lib/frama-c-view-cfg/core/viewCfg__Hello.cmi" {"core/viewCfg__Hello.cmi"}
+  "_build/install/default/lib/frama-c-view-cfg/core/viewCfg__Hello.cmt" {"core/viewCfg__Hello.cmt"}
+  "_build/install/default/lib/frama-c-view-cfg/core/viewCfg__Hello.cmx" {"core/viewCfg__Hello.cmx"}
+  "_build/install/default/lib/frama-c-view-cfg/dune-package"
+]
+lib_root: [
+  "_build/install/default/lib/frama-c/plugins/view-cfg/META" {"frama-c/plugins/view-cfg/META"}
+]
+libexec: [
+  "_build/install/default/lib/frama-c-view-cfg/core/ViewCfg.cmxs" {"core/ViewCfg.cmxs"}
+]

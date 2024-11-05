@@ -3,9 +3,6 @@
 #include "stdio.h"
 void bubbleSort_slice_1(int *arr, int n)
 {
-  int c = 0;
-  c += 13;
-  c *= 4;
   {
     int i = 0;
     while (i < n - 1) {
@@ -14,7 +11,7 @@ void bubbleSort_slice_1(int *arr, int n)
         while (j < (n - i) - 1) {
           if (*(arr + j) > *(arr + (j + 1))) {
             int temp = *(arr + j);
-            *(arr + j) = *(arr + (j + 1)) + c;
+            *(arr + j) = *(arr + (j + 1));
             *(arr + (j + 1)) = temp;
           }
           j ++;
