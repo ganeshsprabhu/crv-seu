@@ -20,13 +20,6 @@ void redundant_branch_example() {
     }
 }
 
-void constant_folding_in_loop_example() {
-    for (int i = 0; i < 5; i++) {
-        int result = i * 10; // SCF may fold and optimize this if loop bounds are known
-        printf("Result: %d\n", result);
-    }
-}
-
 void compile_time_constant_example() {
     const int a = 7;
     const int b = 3;
@@ -38,7 +31,6 @@ int main() {
     constant_folding_example();
     constant_propagation_example();
     redundant_branch_example();
-    constant_folding_in_loop_example();
     compile_time_constant_example();
     return 0;
 }
