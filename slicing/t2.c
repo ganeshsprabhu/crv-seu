@@ -38,10 +38,10 @@ void bubbleSort(int arr[], int n, int k)
     printArray(arr, n);
 }
 
-// void sayHi()
-// {
-//     printf("Hi\n");
-// }
+void sayHi()
+{
+    printf("Hi\n");
+}
 
 int main()
 {
