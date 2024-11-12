@@ -7,6 +7,8 @@ pthread_mutex_t lock2 = PTHREAD_MUTEX_INITIALIZER;
 
 void *thread1(void *v)
 {
+    // ! REQUEST LOCK1 -> LOCK2
+    // ! NO DEADLOCK
     pthread_mutex_lock(&lock1);
     pthread_mutex_lock(&lock2);
 
@@ -18,6 +20,8 @@ void *thread1(void *v)
 
 void *thread2(void *v)
 {
+    // ! REQUEST LOCK1 -> LOCK2
+    // ! NO DEADLOCK
     pthread_mutex_lock(&lock1);
     pthread_mutex_lock(&lock2);
 

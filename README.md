@@ -26,7 +26,7 @@ NOTE: copy generated output to spare-code/t1.c
 
 ## Dead Code Elimination
 
-frama-c -sparecode-analysis spare-code/t1.c -main f
+frama-c -sparecode-analysis t1.c -main f
 
 ## Deadlock Detection
 
