@@ -1,4 +1,5 @@
-int f() {
+int f()
+{
 	int x = 0;
 	int a = 1;
 	int b = 3;
