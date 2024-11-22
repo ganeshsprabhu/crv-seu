@@ -41,8 +41,13 @@ ocamlfind ocamlc -package cil -linkpkg -o tut2 myownciltut.ml tut2.ml
 
 ocamlfind ocamlc -package cil -linkpkg -o tut3 myownciltut.ml tut3.ml
 
+ocamlfind ocamlc -package cil -linkpkg -o tut4 myownciltut.ml tut4.ml
+
 <!-- another terminal -->
 
 cpp -P tut2_modified.c -o tut2_clean.c
 
 cpp -P tut3_modified.c -o tut3_clean.c
+
+cpp -P tut4_modified.c -o tut4_clean.c
+

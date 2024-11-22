@@ -5,10 +5,12 @@ int bar = 37;
 
 int foo()
 {
-  int l;
-  bar = 0; // ! assignment to global var "deleted" will be removed
-  l = bar;
-  return l;
+  int x, y;
+  bar = 0; // ! assignment to global var "bar" will be removed
+  x = bar;
+  bar = 1; // ! assignment to global var "bar" will be removed
+  y = bar;
+  return x + y;
 }
 
 int main()

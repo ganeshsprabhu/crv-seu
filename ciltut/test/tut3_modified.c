@@ -375,11 +375,6 @@ int main(void)
   c *= d - b;
 #line 13
   b -= d + a;
-#line 18
-  if (a % 2) {
-#line 19
-    a ++;
-  }
 #line 24
   printf("a = %d, b = %d, c = %d, d = %d\n", a, b, c, d);
 #line 25

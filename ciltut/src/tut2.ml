@@ -10,8 +10,6 @@ module E = Errormsg
   SkipChildren: stops the visitor from recursing into child AST nodes
   DoChildren: recurses into child AST nodes
   ChangeTo x: replace the AST node with new node "x"
-  ChangeDoChildrenPost(x, f): 
-    replace the AST node with x, then run f on the result of rebuilding x
 *)
 
 (* visit a function, and remove all assignments to a global variable called "deleted" *)

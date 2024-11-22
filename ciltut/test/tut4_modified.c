@@ -350,36 +350,91 @@
    void *__builtin___memset_chk(void * , int  , unsigned long  , unsigned long  ) ;  */
 /* compiler builtin: 
    void *__builtin_frame_address(unsigned int  ) ;  */
-#line 4 "tut2.c"
-int bar  =    37;
-#line 6 "tut2.c"
-int foo(void) 
+#line 4 "tut4.c"
+void tut_begin_loop(char const   *f , int l ) 
 { 
-  int x ;
-  int y ;
+
 
   {
-#line 10
-  x = bar;
-#line 12
-  y = bar;
-#line 13
-  return (x + y);
+#line 4
+  return;
 }
 }
-#line 20
+#line 7
 extern int ( /* missing proto */  printf)() ;
-#line 16 "tut2.c"
+#line 5 "tut4.c"
+void tut_end_loop(char const   *f , int l , int c ) 
+{ 
+
+
+  {
+#line 7
+  printf("loop: %s:%d- %d times\n", f, l, c - 1);
+#line 8
+  return;
+}
+}
+#line 11 "tut4.c"
 int main(void) 
 { 
-  int r ;
+  int i ;
+  int j ;
+  int c ;
+  int __cil_tmp4 ;
+  int __cil_tmp5 ;
 
   {
-#line 19
-  r = foo();
+#line 14
+  c = 1;
+#line 16
+  i = 0;
+  {
+#line 16
+  tut_begin_loop("tut4.c", 16);
+#line 16
+  __cil_tmp5 = 0;
+#line 16
+  while (1) {
+#line 16
+    __cil_tmp5 ++;
+#line 16
+    if (! (i < 10)) {
+#line 16
+      break;
+    }
+#line 18
+    j = 0;
+    {
+#line 18
+    tut_begin_loop("tut4.c", 18);
+#line 18
+    __cil_tmp4 = 0;
+#line 18
+    while (1) {
+#line 18
+      __cil_tmp4 ++;
+#line 18
+      if (! (j < 5)) {
+#line 18
+        break;
+      }
 #line 20
-  printf("r = %d\n", r);
-#line 21
+      c *= i;
+#line 18
+      j ++;
+    }
+#line 18
+    tut_end_loop("tut4.c", 18, __cil_tmp4);
+    }
+#line 16
+    i ++;
+  }
+#line 16
+  tut_end_loop("tut4.c", 16, __cil_tmp5);
+  }
+#line 24
+  printf("c = %d\n", c);
+#line 25
   return (0);
 }
 }

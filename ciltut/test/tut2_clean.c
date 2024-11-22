@@ -1,10 +1,12 @@
 int bar = 37;
 int foo(void)
 {
-  int l ;
+  int x ;
+  int y ;
   {
-  l = bar;
-  return (l);
+  x = bar;
+  y = bar;
+  return (x + y);
 }
 }
 extern int ( printf)() ;

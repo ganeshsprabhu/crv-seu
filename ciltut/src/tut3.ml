@@ -83,7 +83,7 @@ let oekind_includes (is_this : oekind) (in_this : oekind) : bool =
   | Bottom, _ -> true
   | _, _ -> false
 
-
+(* NOT INTERESTING *)
 (* defines the least-upper-bound operation for our lattice *)
 (* 
 read like this:
@@ -263,11 +263,12 @@ let computeOddEven (fd : fundec) : unit =
   (* do dataflow analysis *)
   OddEven.compute [first_stmt]
 
-
+(* NOT INTERESTING *)
 let getOddEvens (sid : int) : varmap list option =
   try Some(IH.find OddEvenDF.stmtStartData sid)
   with Not_found -> None
 
+(* NOT INTERESTING *)
 (* calculates the state of each local var after each instr in a stmt *)
 let instrOddEvens (il : instr list) (vml : varmap list) : varmap list list =
   let proc_one hil i =
