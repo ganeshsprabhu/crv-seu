@@ -43,6 +43,8 @@ ocamlfind ocamlc -package cil -linkpkg -o tut3 myownciltut.ml tut3.ml
 
 ocamlfind ocamlc -package cil -linkpkg -o tut4 myownciltut.ml tut4.ml
 
+ocamlfind ocamlc -package cil -linkpkg -o Poc_Program_Sliced_Instrument myownciltut.ml Poc_Program_Sliced_Instrument.ml
+
 <!-- another terminal -->
 
 cpp -P tut2_modified.c -o tut2_clean.c
@@ -51,3 +53,14 @@ cpp -P tut3_modified.c -o tut3_clean.c
 
 cpp -P tut4_modified.c -o tut4_clean.c
 
+cpp -P Poc_Program_Sliced_Instrument_modified.c -o Poc_Program_Sliced_Instrument_clean.c
+
+# Run in docker
+
+```bash
+# run container and mount volume
+docker run --name ciltut -it -d -v ./ciltut:/home/opam/app rohitshah1706/ciltut:latest
+
+# attach container via CLI or you could also use vscode extension to attach to container
+docker exec -it ciltut /bin/bash
+```
