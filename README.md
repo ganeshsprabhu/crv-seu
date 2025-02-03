@@ -75,5 +75,6 @@ e8209c293a7f:~/app/src$
 eval $(opam env)
 ocamlfind ocamlc -package cil -linkpkg -o instrument_seu  myownciltut.ml instrument_seu.ml
 ./instrument_seu
+cd ../test/
 cpp -P output.c -o output_1.c
 ```bash
