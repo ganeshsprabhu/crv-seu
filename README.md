@@ -67,7 +67,10 @@ docker exec -it ciltut /bin/bash
 
 # Updated Execution steps
 ```bash
-iiitb@iiitb-vm:~/crv-seu/ciltut$ docker exec -it ciltut /bin/bash
+docker pull ganeshasprabhu/ciltut:latest
+git clone https://github.com/ganeshsprabhu/crv-seu.git
+iiitb@iiitb-vm: cd ~/crv-seu/ciltut$
+docker exec -it ciltut /bin/bash
 e8209c293a7f:~/app$ ls
 Dockerfile  src  test
 e8209c293a7f:~/app$ cd src/
@@ -77,7 +80,7 @@ ocamlfind ocamlc -package cil -linkpkg -o instrument_seu  myownciltut.ml instrum
 ./instrument_seu
 cd ../test/
 cpp -P output.c -o output_1.c
-```bash
+```
 
-# Docker gub location
+# Docker hub location
 https://hub.docker.com/u/ganeshasprabhu
