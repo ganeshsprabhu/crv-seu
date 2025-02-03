@@ -64,3 +64,16 @@ docker run --name ciltut -it -d -v ./ciltut:/home/opam/app rohitshah1706/ciltut:
 # attach container via CLI or you could also use vscode extension to attach to container
 docker exec -it ciltut /bin/bash
 ```
+
+# Updated Execution steps
+```bash
+iiitb@iiitb-vm:~/crv-seu/ciltut$ docker exec -it ciltut /bin/bash
+e8209c293a7f:~/app$ ls
+Dockerfile  src  test
+e8209c293a7f:~/app$ cd src/
+e8209c293a7f:~/app/src$ 
+eval $(opam env)
+ocamlfind ocamlc -package cil -linkpkg -o instrument_seu  myownciltut.ml instrument_seu.ml
+./instrument_seu
+cpp -P output.c -o output_1.c
+```bash
