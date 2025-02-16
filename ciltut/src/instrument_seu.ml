@@ -35,7 +35,7 @@ class seuInstrumentationVisitor (target_var : string) = object
           | _ -> new_instrs := i :: !new_instrs
         ) il;
         ChangeTo (mkStmt (Instr (List.rev !new_instrs)))
-    | If (cond, b1, b2, loc) when has_variable target_var cond ->
+    | If (cond, _, _, loc) when has_variable target_var cond ->
         let temp_var = makeLocalVar (emptyFunction "temp") target_var intType in
         let new_stmt = mkStmt (Instr [create_seu_call target_var temp_var loc]) in
         let new_block = mkBlock (new_stmt :: [s]) in
@@ -50,11 +50,16 @@ let process_function (fd : fundec) (target_var : string) : unit =
 
 (* Entry point: Parses the C file and modifies it *)
 let () =
-  let input_file = "../test/input.c" in
-  let output_file = "../test/output.c" in
-  let target_var = Sys.argv.(1) in  (* Take variable name from command-line argument *)
+  if Array.length Sys.argv <> 4 then (
+    Printf.eprintf "Usage: %s <source_file> <output_file> <variable_name>\n" Sys.argv.(0);
+    exit 1
+  );
 
-  let f = Frontc.parse input_file () in
+  let source_file = Sys.argv.(1) in
+  let output_file = Sys.argv.(2) in
+  let target_var = Sys.argv.(3) in  (* Take variable name from command-line argument *)
+
+  let f = Frontc.parse source_file () in
   iterGlobals f (function
     | GFun (fd, _) -> process_function fd target_var
     | _ -> ());
