@@ -15,8 +15,8 @@ int main(void)
   }
   }
   x = 3;
-  simulate_seu_main(& x);
   y = arr[x];
+  simulate_seu_main(& arr[x]);
   return (0);
 }
 }

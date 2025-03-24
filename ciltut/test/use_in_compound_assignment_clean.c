@@ -3,8 +3,8 @@ int main(void)
   int x ;
   {
   x = 10;
-  simulate_seu_main(& x);
   x += 5;
+  simulate_seu_main(& x);
   return (0);
 }
 }

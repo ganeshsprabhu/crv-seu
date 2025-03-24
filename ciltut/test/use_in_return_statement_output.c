@@ -372,9 +372,9 @@ int main(void)
 #line 8
   x = 10;
 #line 9
-  simulate_seu_main(& x);
-#line 9
   tmp = get_value(x);
+#line 9
+  simulate_seu_main(& x);
 #line 9
   printf("%d\n", tmp);
 #line 10

@@ -350,33 +350,55 @@
    void *__builtin___memset_chk(void * , int  , unsigned long  , unsigned long  ) ;  */
 /* compiler builtin: 
    void *__builtin_frame_address(unsigned int  ) ;  */
-#line 3 "use_in_function_argument.c"
-extern int ( /* missing proto */  printf)() ;
-#line 3 "use_in_function_argument.c"
-void foo(int val ) 
+#line 4 "cs1_sliced.c"
+int p(int x , int y ) 
 { 
-
-
-  {
-#line 3
-  printf("%d\n", val);
-#line 3
-  return;
-}
-}
-#line 5 "use_in_function_argument.c"
-int main(void) 
-{ 
-  int x ;
+  int output ;
+  int count ;
 
   {
 #line 6
-  x = 10;
+  output = 4;
 #line 7
-  foo(x);
-#line 7
-  simulate_seu_main(& x);
+  count = 0;
+  {
 #line 8
+  simulate_seu_main(& output);
+#line 8
+  while (count < 7) {
+#line 9
+    if (x > 10) {
+#line 10
+      if (y == 1) {
+#line 10
+        output = 2;
+      } else {
+#line 10
+        output = 1;
+      }
+    } else {
+#line 11
+      output ++;
+    }
+#line 12
+    count ++;
+  }
+  }
+#line 14
+  return (output);
+}
+}
+#line 18 "cs1_sliced.c"
+int main(void) 
+{ 
+  int output ;
+  int x ;
+  int y ;
+
+  {
+#line 21
+  output = p(x, y);
+#line 22
   return (0);
 }
 }

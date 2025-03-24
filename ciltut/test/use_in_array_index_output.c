@@ -377,9 +377,9 @@ int main(void)
 #line 5
   x = 3;
 #line 6
-  simulate_seu_main(& x);
-#line 6
   y = arr[x];
+#line 6
+  simulate_seu_main(& arr[x]);
 #line 7
   return (0);
 }

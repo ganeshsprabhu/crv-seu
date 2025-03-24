@@ -361,8 +361,6 @@ int main(void)
 #line 4
   x = 10;
 #line 4
-  simulate_seu_main(& ptr);
-#line 4
   ptr = & x;
 #line 5
   y = *ptr;

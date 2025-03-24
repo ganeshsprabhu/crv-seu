@@ -11,8 +11,8 @@ int main(void)
   int tmp ;
   {
   x = 10;
-  simulate_seu_main(& x);
   tmp = get_value(x);
+  simulate_seu_main(& x);
   printf("%d\n", tmp);
   return (0);
 }

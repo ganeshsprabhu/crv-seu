@@ -7,8 +7,8 @@ int main(void)
   int tmp ;
   {
   x = 5;
-  simulate_seu_main(& x);
   tmp = SQUARE(x);
+  simulate_seu_main(& x);
   y = tmp;
   printf("%d\n", y);
   return (0);

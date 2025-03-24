@@ -4,8 +4,8 @@ int main(void)
   int y ;
   {
   x = 10;
-  simulate_seu_main(& x);
   y = x & 15;
+  simulate_seu_main(& x);
   return (0);
 }
 }

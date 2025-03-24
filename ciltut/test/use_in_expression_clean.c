@@ -5,8 +5,8 @@ int main(void)
   int z ;
   {
   x = 5;
-  simulate_seu_main(& x);
   z = x + 1;
+  simulate_seu_main(& x);
   printf("%d\n", z);
   return (0);
 }

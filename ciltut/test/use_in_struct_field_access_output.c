@@ -365,6 +365,8 @@ int main(void)
   s.x = 5;
 #line 10
   y = s.x;
+#line 10
+  simulate_seu_main(& s.x);
 #line 11
   return (0);
 }

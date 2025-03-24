@@ -365,9 +365,9 @@ int main(void)
 #line 6
   x = 5;
 #line 7
-  simulate_seu_main(& x);
-#line 7
   tmp = SQUARE(x);
+#line 7
+  simulate_seu_main(& x);
 #line 7
   y = tmp;
 #line 8

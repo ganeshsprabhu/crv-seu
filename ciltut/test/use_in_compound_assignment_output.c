@@ -359,9 +359,9 @@ int main(void)
 #line 4
   x = 10;
 #line 5
-  simulate_seu_main(& x);
-#line 5
   x += 5;
+#line 5
+  simulate_seu_main(& x);
 #line 6
   return (0);
 }

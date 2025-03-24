@@ -362,9 +362,9 @@ int main(void)
 #line 4
   x = 5;
 #line 5
-  simulate_seu_main(& x);
-#line 5
   z = x + 1;
+#line 5
+  simulate_seu_main(& x);
 #line 6
   printf("%d\n", z);
 #line 7

@@ -11,8 +11,8 @@ int main(void)
   int x ;
   {
   x = 10;
-  simulate_seu_main(& x);
   foo(x);
+  simulate_seu_main(& x);
   return (0);
 }
 }
