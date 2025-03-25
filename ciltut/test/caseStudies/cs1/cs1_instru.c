@@ -361,11 +361,11 @@ int p(int x , int y )
   output = 4;
 #line 7
   count = 0;
-  {
-#line 8
-  simulate_seu_main(& output);
 #line 8
   while (count < 7) {
+    {
+#line 9
+    simulate_seu_main(& x);
 #line 9
     if (x > 10) {
 #line 10
@@ -380,9 +380,9 @@ int p(int x , int y )
 #line 11
       output ++;
     }
+    }
 #line 12
     count ++;
-  }
   }
 #line 14
   return (output);
@@ -396,6 +396,8 @@ int main(void)
   int y ;
 
   {
+#line 21
+  simulate_seu_main(& x);
 #line 21
   output = p(x, y);
 #line 22
