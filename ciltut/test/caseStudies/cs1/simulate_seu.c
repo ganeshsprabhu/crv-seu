@@ -53,6 +53,7 @@ int p_prime_x(int x , int y )
 int main() {
 
 	int output, x, y;
+    
 	output = p(x, y); // OriginalProgram
 	int x_output = p_prime_x(x, y); // p'(x): Instrumented program, x is the variable under investigation
 
@@ -66,7 +67,6 @@ int main() {
 
 	return 0; 
 }
-
 
 
 
