@@ -1,0 +1,28 @@
+CBMC version 5.12 (cbmc-5.12) 64-bit x86_64 linux
+Parsing simulate_seu.c
+Converting
+Type-checking simulate_seu
+Generating GOTO Program
+Adding CPROVER library (x86_64)
+Removal of function pointers and virtual functions
+Generic Property Instrumentation
+Running with 8 object bits, 56 offset bits (default)
+Starting Bounded Model Checking
+size of program expression: 166 steps
+simple slicing removed 5 assignments
+Generated 1 VCC(s), 1 remaining after simplification
+Passing problem to propositional reduction
+converting SSA
+Running propositional reduction
+Post-processing
+Solving with MiniSAT 2.2.1 with simplifier
+9163 variables, 31016 clauses
+SAT checker: instance is UNSATISFIABLE
+Runtime decision procedure: 0.10035s
+
+** Results:
+simulate_seu.c function main
+[main.assertion.1] line 53 CRV Result for humidity_level => if SUCCESS, then it's not a CRV: SUCCESS
+
+** 0 of 1 failed (1 iterations)
+VERIFICATION SUCCESSFUL
