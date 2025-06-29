@@ -1,50 +1,75 @@
-# Automating the self-developed concept of catching CRV variables
-This repository contains a shell file that works by taking the C source code (the one for which CRV are meant to be found) and a condition.txt file (with the safety condition present in it).
+# Setting up required stuff for Catching CRV Variables using Frama-C and CIL (Only for C source code)
+This repository contains the necessary steps to be able to run the concept as described in the paper for catching CRV variables for a C controller code.
+
+Since the concept requires us to instrument the code (i.e., insert particular C code at certain places), we use Opam in order to slice the code (static analysis is done with respect to the output variable) and instrument the statements (before the use of the variable in consideration).
+
+Note that the below instructions have all been performed and tested in WSL 2 terminal running on a windows 11 machine.
 
 ## Pre-Requisites
-- Finish Setting up (refer to the 'setup' folder)
-- Ensure that the 'instrument_seu', 'simulate_seu.h' files are all present in this directory itself.
+- Working Opam in your system
+- C compiler
+- OCaml compiler
+Refer to online documentation to download the above.
 
-## Running The Concept
-The 'automate_catch_crv.sh' is a shell file that takes a few inputs, including the source file under consideration, the function under consideration, the output variable for which the safety condition is defined, and the variable whose conditional relevance you want to check.
+## Setting Up Opam Switches
+In order to have Frama-C and CIL, we create 2 separate Opam Switches (isolated environments to download OCaml packages)
 
-The following is done by the shell file in order:
-
-1. Gets the source C file
-2. Performs static analysis on a function (the entry point) with respect to a variable that are given as input by the user and writes the sliced code into a '{user_input_file}_sliced.c' file
-3. Uses the above sliced code and the 'instrument_seu' to insert simulate_seu statements into the sliced code with respect to a variable (given by the user) and writes this instrumented code into '{user_input_file}_instru.c' file.
-4. Cleans the '{user_input_file}_instru.c' file and writes it to '{user_input_file}_instru_clean.c'.
-5. Creates a new file '{user_input_file}_instru_clean_renamed.c' with the function named modified by adding '_prime_{variable_name}' to the function indicating that it simulates seu events for that particular variable in the function.
-6. Now, creates the cbmc ready file '{user_input_file}_cbmc_ready.c' which contains the modified function.
-
-Now, in addition to adding ```#include"simulate_seu.h"``` at the top of the file, the user needs to make a change in this file by adding a call to the modified function just below the original function call. After this, the user needs to add statements to check the output of the safety condition specified.
-For instance, consider the 'cs1_org.c' file. The function under consideration is the 'p' function and the variable with respect to the safety condition is 'output' and the variable in consideration for checking it's conditional relevance is 'x'.
+### Frama-C Switch (v27.1)
+Create a basic Opam Switch
 ```
-int main() {
+opam switch create ocaml-frama-work 4.12.1
+```
+Sync to the created switch
+```
+eval $(opam env --switch=ocaml-frama-work --set-switch)
+```
+Load the dependencies as that in the 'frama-switch.export' file provided.
+```
+opam switch import ./frama-switch.export
+```
+If any errors occur regarding downloading some libraries in your local system, consider using the following command
+```sudo apt install libexpat1-dev libgtk-3-dev libgtksourceview-3.0-dev```
 
-	int output, x, y;
-	output = p(x, y); // OriginalProgram
-	return 0; 
-}
+Ensure that frama-c has been loaded in the switch by listing the version of frama-c.
+```
+opam list | grep frama-c
+```
+It should show an output similar to
+```
+"frama-c               27.1        Platform dedicated to the analysis of source code written in C"
 ```
 
-After adding the new function call and checking the outputs of safety condition, it would look like:
+### CIL Switch (v1.7.3)
+Create a basic Opam Switch
 ```
-int main() {
-
-	int output, x, y;
-    
-	output = p(x, y); // OriginalProgram
-	int x_output = p_prime_x(x, y); // p'(x): Instrumented program, x is the variable under investigation
-
-	//Safety Conditions assignment :  tracks whether the safety property (output <= 10) holds after the SEU is introduced for x/y
-	int phi = output <= 10;
-	int phi_prime_x = x_output <= 10;
-
-
-	// Check CRV for x: We need to find and Ix such that (phi XOR phi_prime_x) is true
-	__CPROVER_assert(!(phi ^ phi_prime_x), "The variable you've instrumented is a CRV");
-
-	return 0; 
-}
+opam switch create ocaml-cil-work 4.01.0
 ```
+Sync to the created switch
+```
+eval $(opam env --switch=ocaml-cil-work --set-switch)
+```
+opam repo add archive https://github.com/ocaml/opam-repository-archive.git
+opam update
+Load the dependencies as that in the 'cil-switch.export' file provided.
+```
+opam switch import ./cil-switch.export
+```
+Ensure that CIL has been loaded in the switch by listing the version of CIL
+```
+opam list | grep cil
+```
+It should show an output similar to
+```
+cil                 1.7.3       A front-end for the C programming language that facilitates program analysis and transformation
+```
+
+## Setting Up CBMS (v5.10)
+Simply do the following command in the terminal
+```
+sudo apt install cbmc
+```
+Confirm the installation by running
+```
+cbmc testing_cbmc.c
+```
+It should show in the terminal a message showing the version of cbmc at the top and 'VERIFICATION SUCCESSFULL' at the end.
