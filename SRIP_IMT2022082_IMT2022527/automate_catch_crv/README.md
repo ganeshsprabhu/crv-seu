@@ -3,7 +3,7 @@ This repository contains a shell file that works by taking the C source code (th
 
 ## Pre-Requisites
 - Finish Setting up (refer to the 'setup' folder)
-- Ensure that the 'instrument_seu', 'simulate_seu.h' files are all present in this directory itself.
+- Ensure that the 'instrument_seu', 'simulate_seu.h', 'setup.sh' files are all present in this directory itself.
 
 ## Running The Concept
 The 'automate_catch_crv.sh' is a shell file that takes a few inputs, including the source file under consideration, the function under consideration, the output variable for which the safety condition is defined, and the variable whose conditional relevance you want to check.
