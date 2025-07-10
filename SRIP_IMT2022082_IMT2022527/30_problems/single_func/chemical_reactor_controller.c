@@ -47,7 +47,7 @@ void log_reactor_state(const char* reason, int heater, int cooler) {
  * @return The new calculated heater duty cycle.
  */
 int step_heater(int last_heater_duty) {
-    int new_heater_duty = 0;
+    int new_heater_duty = last_heater_duty; 
     int cooler_output = 0; // For logging purposes
     float target_temp;
 
@@ -85,23 +85,15 @@ int step_heater(int last_heater_duty) {
             cooler_output = 0;
         }
         char reason[50];
-        sprintf(reason, "Phase %d Control (Target %.1fC)", reaction_phase, target_temp);
-        log_reactor_state(reason, new_heater_duty, cooler_output);
     } 
     // 3. SYSTEM DISABLED
     else {
         new_heater_duty = 0;
         cooler_output = 0;
-        log_reactor_state("System Disabled", new_heater_duty, cooler_output);
     }
 
     // 4. FINAL SAFETY SATURATION
-    if (new_heater_duty > HEATER_MAX_DUTY_CYCLE) {
-        new_heater_duty = HEATER_MAX_DUTY_CYCLE;
-    }
-    if (new_heater_duty < 0) {
-        new_heater_duty = 0;
-    }
+    
 
     return new_heater_duty;
 }

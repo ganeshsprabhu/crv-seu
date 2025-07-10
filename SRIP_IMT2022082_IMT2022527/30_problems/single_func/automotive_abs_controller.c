@@ -38,9 +38,6 @@ void read_vehicle_sensors(){
 /**
  * @brief Logs the output for simulation purposes.
  */
-void log_abs_state(const char* reason, int pressure, int slip) {
-    printf("Logic: %-20s | Pressure Cmd: %3d | Slip: %2d%%\n", reason, pressure, slip);
-}
 
 /**
  * @brief Main ABS control logic step.
@@ -50,12 +47,8 @@ void log_abs_state(const char* reason, int pressure, int slip) {
 int step(int last_pressure_command) {
     int new_pressure = last_pressure_command;
 
-    // 1. CRITICAL SAFETY OVERRIDE: System Fault
-    // If ABS has a fault, it must revert to direct pass-through.
-    // 'ice_mode_enabled' is irrelevant in this case.
     if (abs_system_fault) {
         new_pressure = driver_brake_request;
-        log_abs_state("ABS FAULT - PASSTHRU", new_pressure, 0);
 
     } 
     // 2. STANDARD OPERATIONAL LOGIC
@@ -69,17 +62,14 @@ int step(int last_pressure_command) {
         if (current_slip > slip_target) {
             // Too much slip (locking up), decrease pressure
             new_pressure -= PRESSURE_STEP_DECREASE;
-            log_abs_state("Reduce Pressure", new_pressure, current_slip);
         } else {
             // Not enough slip, can apply more pressure
             new_pressure += PRESSURE_STEP_INCREASE;
-            log_abs_state("Increase Pressure", new_pressure, current_slip);
         }
     } 
     // 3. NO BRAKING REQUESTED
     else {
         new_pressure = 0;
-        log_abs_state("No Brake Request", new_pressure, 0);
     }
 
     // 4. FINAL SAFETY SATURATION
@@ -113,12 +103,6 @@ int main() {
         abs_system_fault = rand() % 2; // true or false
         abs_system_fault = true; // Set to trigger fault override
         brake_pressure_command = step(brake_pressure_command);
-        
-        // Safety property check
-        if (brake_pressure_command < 0 || brake_pressure_command > MAX_BRAKE_PRESSURE) {
-            printf("!!! SAFETY VIOLATION !!!\n");
-            return -1;
-        }
         // Simulate a change for the next iteration
         if (i == 1) abs_system_fault = false;
     }

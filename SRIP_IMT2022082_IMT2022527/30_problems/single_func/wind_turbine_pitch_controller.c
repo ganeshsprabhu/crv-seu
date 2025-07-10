@@ -74,14 +74,6 @@ int step(int last_pitch_rate) {
     float pitch_error = target_pitch - current_blade_pitch_deg;
     new_rate = (int)round(pitch_error * 0.5f); // Proportional control
 
-    // 4. FINAL SAFETY SATURATION
-    if (new_rate > MAX_PITCH_RATE_DPS) {
-        new_rate = MAX_PITCH_RATE_DPS;
-    }
-    if (new_rate < -MAX_PITCH_RATE_DPS) {
-        new_rate = -MAX_PITCH_RATE_DPS;
-    }
-
     log_turbine_state("Rate Calculation", new_rate);
     return new_rate;
 }

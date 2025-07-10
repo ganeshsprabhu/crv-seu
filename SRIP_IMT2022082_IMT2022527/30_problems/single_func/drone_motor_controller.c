@@ -52,19 +52,14 @@ int step(int last_throttle_cmd) {
     // This path makes 'flight_mode' and pilot input irrelevant.
     if (battery_voltage_mv < CRITICAL_BATTERY_VOLTAGE) {
         new_throttle = RTL_THROTTLE_COMMAND;
-        log_drone_state("CRITICAL BATTERY - RTL", new_throttle);
     } 
     // 2. STANDARD OPERATIONAL LOGIC
     else if (armed) {
         // Logic depends on the CRV 'flight_mode'
         if (flight_mode == FLIGHT_MODE_ACRO) {
-            // Acro mode has a direct, more aggressive response
             new_throttle = pilot_throttle_input;
-            log_drone_state("Acro Mode", new_throttle);
         } else { // Angle Mode
-            // Angle mode might have a smoothed/dampened response
             new_throttle = (last_throttle_cmd + pilot_throttle_input) / 2;
-            log_drone_state("Angle Mode", new_throttle);
         }
     } 
     // 3. DRONE IS DISARMED
@@ -98,12 +93,7 @@ int main() {
         flight_mode = rand() % 2; // 0 (Acro) or 1 (Angle)
         armed = rand() % 2; // true or false
         motor_throttle = step(motor_throttle);
-        
-        // Safety property check
-        if (motor_throttle < 0 || motor_throttle > MAX_THROTTLE) {
-            printf("!!! SAFETY VIOLATION !!!\n");
-            return -1;
-        }
+                
         
         // Simulate a change for the next iteration
         if (i == 1) battery_voltage_mv = 3800;

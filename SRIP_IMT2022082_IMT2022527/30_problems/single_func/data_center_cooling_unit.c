@@ -36,9 +36,6 @@ void read_datacenter_sensors() {
 /**
  * @brief Logs the output for simulation purposes.
  */
-void log_cooling_state(const char* reason, bool state) {
-    printf("Logic: %-25s | Compressor State: %s\n", reason, state ? "ON" : "OFF");
-}
 
 /**
  * @brief Main cooling unit control logic step.
@@ -59,25 +56,20 @@ int step(int last_compressor_state) {
         // Predictive logic using the CRV 'server_cpu_load_percent'
         if (server_cpu_load_percent > 90) {
             new_state = COMPRESSOR_ON;
-            log_cooling_state("Predictive - High Load", new_state);
         } 
         // Reactive logic based on temperature thresholds
         else if (rack_inlet_temp_c > TEMP_HIGH_THRESHOLD_C) {
             new_state = COMPRESSOR_ON;
-            log_cooling_state("Reactive - Temp High", new_state);
         } else if (rack_inlet_temp_c < TEMP_LOW_THRESHOLD_C) {
             new_state = COMPRESSOR_OFF;
-            log_cooling_state("Reactive - Temp Low", new_state);
         } else {
             // In deadband, maintain last state
             new_state = last_compressor_state;
-            log_cooling_state("Maintaining State", new_state);
         }
     } 
     // 3. UNIT DISABLED
     else {
         new_state = COMPRESSOR_OFF;
-        log_cooling_state("Unit Disabled", new_state);
     }
 
     // 4. FINAL SAFETY VALIDATION (state is already binary)
@@ -104,11 +96,6 @@ int main() {
         unit_enabled_by_master = (rand() % 2 == 0);   // Randomly enabled/disabled
         compressor_state = step(compressor_state);
         
-        // Safety property check
-        if (compressor_state != 0 && compressor_state != 1) {
-            printf("!!! SAFETY VIOLATION !!!\n");
-            return -1;
-        }
         
         // Simulate a change for the next iteration
         if (i == 1) water_leak_detected = false;

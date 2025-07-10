@@ -62,7 +62,6 @@ int step(int last_door_force) {
     // This path makes 'special_hold_profile_active' and close commands irrelevant.
     if (obstruction_detected) {
         new_force = DOOR_OPEN_FORCE; // Force doors open
-        log_door_state("OBSTRUCTION DETECTED", new_force);
     } 
     // 2. STANDARD OPERATIONAL LOGIC
     else {
@@ -70,19 +69,15 @@ int step(int last_door_force) {
         if (hold_open_timer > 0) {
             hold_open_timer--;
             new_force = 0; // Hold position
-            log_door_state("Holding door open", new_force);
         } else if (command_close_door) {
             new_force = DOOR_CLOSE_FORCE;
-            log_door_state("Closing door", new_force);
         } else { // (e.g. command_open_door is true)
             new_force = DOOR_OPEN_FORCE;
              // CRV logic: Set a longer timer if the special profile is active
             if (special_hold_profile_active) {
                 hold_open_timer = 20; // Long hold for lobby
-                log_door_state("Opening Door (Lobby Profile)", new_force);
             } else {
                 hold_open_timer = 5; // Standard hold
-                log_door_state("Opening Door (Std Profile)", new_force);
             }
         }
     }

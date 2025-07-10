@@ -14,14 +14,7 @@
 volatile bool jam_detected;
 volatile int item_weight; // (CRV candidate) in kg
 
-void read_conveyor_sensors() {
-    jam_detected = (rand() % 15 == 0); // ~7% chance of a jam
-    item_weight = rand() % 50; // 0-49 kg
-}
 
-void log_motor_speed(const char* reason, int speed) {
-    printf("Reason: %-20s | Motor Speed: %d%%\n", reason, speed);
-}
 
 int step_control_logic() {
     int new_motor_speed;
@@ -30,17 +23,14 @@ int step_control_logic() {
     // This path makes 'item_weight' irrelevant.
     if (jam_detected) {
         new_motor_speed = STOP_SPEED;
-        log_motor_speed("JAM DETECTED", new_motor_speed);
     } 
     // 2. Standard Operational Logic
     else {
         // Logic depends on the CRV 'item_weight'
         if (item_weight > 30) {
             new_motor_speed = 50; // Slower for heavy items
-            log_motor_speed("Heavy Item", new_motor_speed);
         } else {
             new_motor_speed = 90; // Faster for light items
-            log_motor_speed("Light Item", new_motor_speed);
         }
     }
 

@@ -14,14 +14,7 @@ volatile bool human_in_safety_zone;
 volatile int program_path_step; // (CRV candidate)
 volatile int total_path_steps = 100;
 
-void read_robot_sensors() {
-    human_in_safety_zone = (rand() % 20 == 0);
-    // program_path_step is incremented in the loop
-}
 
-void log_robot_command(const char* reason, int command) {
-    printf("Reason: %-25s | Motor Command: %s\n", reason, command == MOTOR_CMD_MOVE ? "MOVE" : "STOP");
-}
 
 int step_control_logic() {
     int new_command;
@@ -30,18 +23,15 @@ int step_control_logic() {
     // This path makes 'program_path_step' irrelevant.
     if (human_in_safety_zone) {
         new_command = MOTOR_CMD_STOP;
-        log_robot_command("HUMAN IN ZONE - E-STOP", new_command);
     } 
     // 2. Standard Operational Logic
     else {
         // Logic depends on the CRV 'program_path_step'
         if (program_path_step < total_path_steps) {
             new_command = MOTOR_CMD_MOVE;
-            log_robot_command("Executing Weld Path", new_command);
             program_path_step++;
         } else {
             new_command = MOTOR_CMD_STOP;
-            log_robot_command("Path Complete", new_command);
         }
     }
     return new_command;

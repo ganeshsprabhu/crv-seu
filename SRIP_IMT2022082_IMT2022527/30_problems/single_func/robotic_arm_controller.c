@@ -80,13 +80,6 @@ int step(int last_torque_command) {
         log_robot_state("Motion Disabled/At Target", new_torque);
     }
 
-    // 4. FINAL SAFETY SATURATION
-    if (new_torque > MAX_MOTOR_TORQUE) {
-        new_torque = MAX_MOTOR_TORQUE;
-    }
-    if (new_torque < 0) { // simplified for demo, real systems might have negative torque
-        new_torque = 0;
-    }
 
     return new_torque;
 }

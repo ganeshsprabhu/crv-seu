@@ -79,11 +79,6 @@ int step(int last_signal_state) {
         }
     }
 
-    // 4. FINAL SAFETY VALIDATION (no real saturation, just validation)
-    if (new_state < STATE_RED || new_state > STATE_GREEN) {
-        new_state = STATE_RED; // Default to safest state
-    }
-
     return new_state;
 }
 

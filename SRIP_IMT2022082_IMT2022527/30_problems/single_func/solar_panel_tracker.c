@@ -81,12 +81,7 @@ int step(int last_actuator_speed) {
     }
 
     // 3. FINAL SAFETY SATURATION
-    if (new_speed > MAX_ACTUATOR_SPEED) {
-        new_speed = MAX_ACTUATOR_SPEED;
-    }
-    if (new_speed < -MAX_ACTUATOR_SPEED) {
-        new_speed = -MAX_ACTUATOR_SPEED;
-    }
+   
 
     return new_speed;
 }

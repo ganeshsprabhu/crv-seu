@@ -78,15 +78,6 @@ int step(int last_pump_rate) {
         log_pump_state("Pump disabled", new_rate);
     }
 
-    // 4. FINAL SAFETY SATURATION
-    // Absolute maximum rate check, regardless of profile.
-    if (new_rate > MAX_PUMP_RATE_ML_HR) {
-        new_rate = MAX_PUMP_RATE_ML_HR;
-    }
-    if (new_rate < 0) {
-        new_rate = 0;
-    }
-
     return new_rate;
 }
 

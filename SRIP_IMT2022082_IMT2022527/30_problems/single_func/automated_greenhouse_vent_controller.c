@@ -15,24 +15,13 @@ volatile int wind_speed;
 volatile int current_temp;
 volatile int target_temp; // (CRV candidate)
 
-void read_greenhouse_sensors() {
-    wind_speed = 30 + (rand() % 40); // Wind between 30 and 70 km/h
-    current_temp = 20 + (rand() % 15); // Temp between 20 and 35 C
-    target_temp = 25; // User-set target
-}
-
-void log_vent_state(const char* reason, int opening) {
-    printf("Reason: %-20s | Vent Opening: %d%%\n", reason, opening);
-}
-
-int step_control_logic() {
-    int new_vent_opening;
+int step_control_logic(int vent_opening) {
+    int new_vent_opening=vent_opening;
 
     // 1. Critical Safety Override: High Wind
     // This path makes 'target_temp' irrelevant.
     if (wind_speed > HIGH_WIND_THRESHOLD) {
         new_vent_opening = MIN_VENT_OPENING;
-        log_vent_state("HIGH WIND LOCKDOWN", new_vent_opening);
     } 
     // 2. Standard Operational Logic
     else {
@@ -40,10 +29,8 @@ int step_control_logic() {
         int temp_diff = current_temp - target_temp;
         if (temp_diff > 0) {
             new_vent_opening = temp_diff * 10; // Open vents to cool down
-            log_vent_state("Temp Regulation", new_vent_opening);
         } else {
-            new_vent_opening = MIN_VENT_OPENING; // Keep closed if cool enough
-            log_vent_state("Temp OK", new_vent_opening);
+            new_vent_opening = vent_opening;
         }
     }
 
@@ -60,13 +47,11 @@ int main() {
     printf("--- Greenhouse Vent Control Simulation (Single Function) ---\n");
 
     for (int i = 0; i < 5; ++i) {
-        read_greenhouse_sensors();
-        vent_opening = step_control_logic();
-        
-        if (vent_opening < MIN_VENT_OPENING || vent_opening > MAX_VENT_OPENING) {
-            printf("!!! SAFETY VIOLATION: Vent opening out of bounds !!!\n");
-            return -1;
-        }
+        wind_speed = 30 + (rand() % 40); // Wind between 30 and 70 km/h
+        current_temp = 20 + (rand() % 15); // Temp between 20 and 35 C
+        target_temp = 25; // User-set target
+        vent_opening = step_control_logic(vent_opening);
+    
     }
 
     return 0;
